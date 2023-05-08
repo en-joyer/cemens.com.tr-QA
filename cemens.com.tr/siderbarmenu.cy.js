@@ -12,12 +12,19 @@ describe('Cemens.com.tr QA - Menü Sidebar Öğeleri', () => {
       cy.viewport('macbook-16');
       cy.visit('https://www.cemens.com.tr/kategori/gurme-paketler');
       cy.wait(1);
-    });      
+
+    });
+
+    afterEach(() => {
+      cy.get('div[id="product-list-container"] img').should('be.visible')  // Ürünlerin fotoğrafı yükleniyor mu?
+    });
+    
+    
    it('Kayseri Mantısı', () => {
       cy.get('.category-level-1 > :nth-child(1) > :nth-child(1) > a > span')
       .click()
       cy.url().should('eq','https://www.cemens.com.tr/kategori/kayseri-mantisi-1') //Url doğru mu?
-      cy.get('div[id="product-list-container"] img').should('be.visible') // Ürünlerin fotoğrafı yükleniyor mu?
+      cy.title().should('contain', 'Kayseri Mantısı') // Title doğru mu?
    });
    it('Pastırma Sucuk', () => {
       cy.get('[href="/kategori/pastirma-sucuk"]')
@@ -25,8 +32,8 @@ describe('Cemens.com.tr QA - Menü Sidebar Öğeleri', () => {
       .wait(1000)
       .click()
       .wait(500)
-      cy.url().should('eq','https://www.cemens.com.tr/kategori/pastirma-sucuk') 
-      cy.get('div[id="product-list-container"] img').should('be.visible') // Ürünlerin fotoğrafı yükleniyor mu?
+      cy.url().should('eq','https://www.cemens.com.tr/kategori/pastirma-sucuk')  
+      cy.title().should('contain', 'Pastırma-Sucuk')
    });
    it('Pastırma Sucuk > Pastırma', () => {
       cy.get('[href="/kategori/pastirma-sucuk"]')
@@ -36,6 +43,7 @@ describe('Cemens.com.tr QA - Menü Sidebar Öğeleri', () => {
       .click()
       cy.url().should('eq','https://www.cemens.com.tr/kategori/pastirma')
       cy.title().should('contain', 'Pastırma') // Title doğru mu?
+      
    });
    it('Pastırma Sucuk > Sucuk', () => {
       cy.get('[href="/kategori/pastirma-sucuk"]')
